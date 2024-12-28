@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="text-center">Code Executor</h1>
+        <form id="codeForm" class="mt-4">
+            <div class="mb-3">
+                <label for="language" class="form-label">Choose Language:</label>
+                <select id="language" name="language" class="form-select">
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="code" class="form-label">Enter Code:</label>
+                <textarea id="code" name="code" class="form-control" placeholder="Write your code here..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn-primary w-100" onclick="executeCode()">Run Code</button>
+        </form>
+
+        <div id="output" class="output">
+                <div id="spinner" class="spinner-border text-primary d-none" role="status">
+                     <span class="visually-hidden">Loading...</span>
+                </div>
+            <h5>Output:</h5>
+            <pre id="outputText" class="mt-2"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function executeCode() {
+        const language = document.getElementById('language').value;
+        const code = document.getElementById('code').value;
+        const spinner = document.getElementById('spinner');
+        const outputText = document.getElementById('outputText');
+
+        // Очищаем предыдущий вывод и показываем спиннер
+        outputText.textContent = '';
+        spinner.classList.remove('d-none'); // Показать спиннер
+
+        try {
+            const response = await fetch('/api/execute/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ language, code }),
+            });
+
+            const result = await response.json();
+
+            spinner.classList.add('d-none'); // Скрыть спиннер
+
+            if (!response.ok) {
+                outputText.textContent = result.error || 'An error occurred';
+                return;
+            }
+
+            outputText.textContent = result.stdout || result.stderr || 'No output';
+        } catch (error) {
+            spinner.classList.add('d-none'); // Скрыть спиннер при ошибке
+            outputText.textContent = `Error: ${error.message}`;
+        }
+    }
+</script>
+{% endblock %}

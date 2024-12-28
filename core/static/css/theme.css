@@ -1,0 +1,106 @@
+:root {
+    /* Светлая тема */
+    --bg-color: #f9f9f9;
+    --text-color: #333333;
+    --btn-bg-color: #007bff; /* Цвет кнопки */
+    --btn-text-color: #ffffff;
+    --spinner-color: #007bff; /* Цвет спиннера */
+    --card-bg: #ffffff; /* Фон карточки */
+    --card-shadow: rgba(0, 0, 0, 0.1); /* Тень карточки */
+    --output-bg: #f8f9fa; /* Фон окна вывода */
+    --output-text: #333333; /* Цвет текста окна вывода */
+}
+
+[data-theme="dark"] {
+    /* Темная тема */
+    --bg-color: #181818;
+    --text-color: #e0e0e0;
+    --btn-bg-color: #ff8c00; /* Оранжевый цвет кнопки */
+    --btn-text-color: #ffffff;
+    --spinner-color: #ff8c00; /* Оранжевый цвет спиннера */
+    --card-bg: #282828; /* Темный фон карточки */
+    --card-shadow: rgba(0, 0, 0, 0.5); /* Темная тень карточки */
+    --output-bg: #343a40; /* Темный фон окна вывода */
+    --output-text: #e0e0e0; /* Светлый текст окна вывода */
+}
+
+/* Базовые стили */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Карточка */
+.card {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px var(--card-shadow);
+    border: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Кнопка */
+.btn {
+    background-color: var(--btn-bg-color);
+    color: var(--btn-text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--btn-bg-color);
+    filter: brightness(90%); /* Затемнение цвета */
+}
+
+
+/* Спиннер */
+.spinner-border {
+    border-color: var(--spinner-color) transparent transparent transparent;
+    transition: border-color 0.3s;
+}
+
+/* Окно вывода */
+.output {
+    background-color: var(--output-bg);
+    color: var(--output-text);
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px var(--card-shadow);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Поля ввода */
+textarea, select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid var(--text-color) !important;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--output-bg) !important; /* Синхронизируем фон с темой */
+    color: var(--text-color) !important;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+textarea:focus, select:focus, input:focus {
+    border-color: var(--btn-bg-color) !important; /* Цвет кнопки для акцента */
+    outline: none;
+}
+
+textarea::placeholder, input::placeholder {
+    color: var(--text-color) !important;
+    opacity: 0.6;
+    transition: color 0.3s;
+}
+
+/* Заголовки и текстовые метки */
+h1, label {
+    color: var(--text-color); /* Цвет текста в зависимости от темы */
+    transition: color 0.3s;
+}
+
+/* Центрирование заголовка */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
